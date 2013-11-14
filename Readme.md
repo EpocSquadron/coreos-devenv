@@ -16,7 +16,7 @@ I used to use [Chef](http://www.opscode.com/chef/) to configure multiple virtual
 - Setting up my own chef cookbooks (for the aforementioned forks and for custom functionality) presented its own challenges, some of which were solved by [Berkshelf](http://berkshelf.com/).
 - Having more than one virtual machine for a development environment quickly slows down the host machine, eating up ram, disk and cpu.
 
-The combination of the above resulted in a large number of dependencies on the system of a would-be modifier.
+The combination of the above resulted in a large number of dependencies on the system of a would-be contributor. The workflow for a contributor would be like this:
 
 - They would need to set up rbenv or rvm for berkshelf
 - Then install berkshelf
@@ -25,21 +25,22 @@ The combination of the above resulted in a large number of dependencies on the s
 - Then learn how to write or modify recipes
 - Then iterate with vagrant up and destroy over and over again
 
+This old way of doing things has proven to be a huge barrier to adoption as well as introducing enough moving parts to make things break fairly often. So I went searching for a replacement technology. Then came Docker and CoreOS.
+
 ### The new way
 
-To fix the maintainance issues I settled on CoreOS, which:
+CoreOS is essentially a barebones linux with the following properties:
 
-- Updates itself automatically
+- It updates itself automatically
 - Does not use virtualbox guest additions (and so doesn't need to update it)
 - Cannot be modified by the user (doesn't have a package manager of it's own to modify the system, and has read-only system files)
 - Has Docker already completely set up and ready to use
 
 Thanks to the above, I no longer need to maintain a working development environment once it has been set up. Now only the server stack itself receives updates. That server stack is introduced via Docker images. Docker images have the following advantages:
 
-- They are LXC containers, which are like a chroot on steroids, or a really lightweight virtual machine
-- Files that are the same accross containers don't get replicated for each container
+- They are [LXC containers](http://linuxcontainers.org/), which are like a chroot on steroids, or a really lightweight virtual machine
+- Files that are the same accross containers don't get replicated for each container, but rather reused, saving disk space
 - Each container shares the host's kernel and so need not initialize it's own and hog additional memory for it
-- They are secure in that they are separated at the process level from eachother, and can only expose certain ports to the world (no need for a firewall on each container)
 - They are easily published and updated with `docker push` and `docker pull`
 
 So with containers I can simply attach a shell, install and modify what I need, then commit and push the changes up to the Docker repository. Later other developers can simply pull the changes down inside their vm (or destroy and up), instead of modifying their vagrantfiles to pull a new tar of cookbooks.
@@ -48,7 +49,11 @@ Furthermore, additional dockerfiles can be introduced by each developer to set u
 
 ### Dynamic Virtual Hosts
 
-In addition to the advantages above, the standard LAMP setup included utilizes apache's mod_vhost_alias
+We are able to share the hosts directory with CoreOS using NFS, and from there we can share the directory with the apache-php docker container. This allows developers to use their host machine to manage all of the development (git, uglify, etc), while immediately having their modifications appear in the apache server.
+
+Using apache's mod_vhost_alias we can route wildcard hostnames to their matching folders. Thus, as long as a folder exists in the shared directory with a name appearing in the hostname used to access it, we can simply serve it, bypassing the need to generate it's own virtualhost configuration.
+
+> This introduces a weakness, where `$_SERVER['DOCUMENT_ROOT']` does not get set. Fortunately, we take care of this by simply prepending all php scripts with a small php script that sets this variable manually.
 
 ## How to use it
 
@@ -95,4 +100,6 @@ Continue as you normally would for creating the required database and loading th
 
 > If you want to change the password, open up `.containers/mysql-standard/grants.sql` and change the password in the SQL statement. This sql file is ran as the init-file for apache every time the mysql-standard container loads.
 
+## Development
 
+The dockerfiles and additional assets for the two core containers are located in `.containers`, where you can modify them as you wish and generate new docker images. Read more about docker development at the [docker.io docs](http://docs.docker.io/en/latest/).
