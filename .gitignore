@@ -1,6 +1,12 @@
+# Ignore everything so we can put this reop in the
+# ~/Sites folder, optionally.
 *
+
+# Let git track the internal folder.
+!.coreos-devenv
+
+# Let git track the three files that have to be out
+# of the internal folder.
 !.gitignore
-!.containers
-!.scripts
 !Readme.md
 !Vagrantfile
