@@ -3,7 +3,18 @@ docker build -t epocsquadron/apache-php-dynamic /home/core/sites/.coreos-devenv/
 docker build -t epocsquadron/mysql-standard /home/core/sites/.coreos-devenv/containers/mysql-standard/
 
 echo ":: Starting mysql container..."
-docker run -v /home/core/sites/.coreos-devenv/mysql-data:/var/lib/mysql -p 3306:3306 -d epocsquadron/mysql-standard
+docker run \
+	-v /home/core/sites/.coreos-devenv/mysql-data:/var/lib/mysql \
+	-d \
+	-name mysql-standard \
+	epocsquadron/mysql-standard
 
 echo ":: Starting apache container..."
-docker run -v /home/core/sites:/var/www -p 80:80 -p 443:443 -d epocsquadron/apache-php-dynamic
+docker run \
+	-v /home/core/sites:/var/www \
+	-p 80:80 \
+	-p 443:443 \
+	-d \
+	-name apache-php-dynamic \
+	-link /mysql-standard:db \
+	epocsquadron/apache-php-dynamic
