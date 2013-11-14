@@ -59,7 +59,11 @@ Using apache's mod_vhost_alias we can route wildcard hostnames to their matching
 
 ### Installation
 
-Simply clone or download this repo to the directory you will be storing your website projects. Typically this is `~/Sites` or `~/Projects`. Then in that directory run `vagrant up`. The first run will take a little bit of time to pull the coreos image, pull the relevant docker images and start them up, but subsequent runs will only need to start the docker instances (which btw is nearly instantaneous).
+Simply download this repo to the directory you will be storing your website projects. Typically this is `~/Sites` or `~/Projects`.
+
+> Don't clone this repository into that directory, as this repository will unneccesarily track your changes to your databases. It may also fool you into thinking you have a repository in `~/Sites/some-project` when in fact you are commiting to this respository.
+
+Then in that directory run `vagrant up`. The first run will take a little bit of time to pull the coreos image, pull the relevant docker images and start them up, but subsequent runs will only need to start the docker instances (which btw is nearly instantaneous).
 
 You may also install dnsmasq via the included script at `.scripts/install-dnsmasq.sh`, which requires OSX and [homebrew](http://brew.sh/).
 
