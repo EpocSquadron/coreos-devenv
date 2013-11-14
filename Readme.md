@@ -65,7 +65,7 @@ Simply download this repo to the directory you will be storing your website proj
 
 Then in that directory run `vagrant up`. The first run will take a little bit of time to pull the coreos image, pull the relevant docker images and start them up, but subsequent runs will only need to start the docker instances (which btw is nearly instantaneous).
 
-You may also install dnsmasq via the included script at `.scripts/install-dnsmasq.sh`, which requires OSX and [homebrew](http://brew.sh/).
+You may also install dnsmasq via the included script at `.coreos-devenv/scripts/install-dnsmasq.sh`, which requires OSX and [homebrew](http://brew.sh/).
 
 > **Linux Users:** You can install dnsmasq from your distro's repository and add the line `address=/dsdev/33.33.33.77` to the `/etc/dnsmasq.conf` file. Then ensure that your dnsmasq installation is (re)loaded to allow the configuration to take effect, and optionally enable it on startup. For systemd users this means running `sudo systemctl reload dnsmasq.service && sudo systemctl enable dnsmasq.service`. Finally ensure dnsmasq is your default nameserver for your network connection, usually by adding `nameserver 127.0.0.1` as the first line in your `/etc/resolv.conf` file.
 
@@ -102,8 +102,10 @@ Continue as you normally would for creating the required database and loading th
 - Host: ??
 - Port: 3306
 
-> If you want to change the password, open up `.containers/mysql-standard/grants.sql` and change the password in the SQL statement. This sql file is ran as the init-file for apache every time the mysql-standard container loads.
+> If you want to change the password, open up `.coreos-devenv/containers/mysql-standard/grants.sql` and change the password in the SQL statement. This sql file is ran as the init-file for apache every time the mysql-standard container loads.
+
+Note that the data files for mysql are actually stored on your computer (the host), so that you can destroy and up your virtual machine at will. A base data folder is provided to prevent mysql from failing to start on first load, but if you have a data directory from a previous install, you can simply overwrite `.coreos-devenv/mysql-data/` with it and you should be up and running with your databases.
 
 ## Development
 
-The dockerfiles and additional assets for the two core containers are located in `.containers`, where you can modify them as you wish and generate new docker images. Read more about docker development at the [docker.io docs](http://docs.docker.io/en/latest/).
+The dockerfiles and additional assets for the two core containers are located in `.coreos-devenv/containers`, where you can modify them as you wish and generate new docker images. Read more about docker development at the [docker.io docs](http://docs.docker.io/en/latest/).
