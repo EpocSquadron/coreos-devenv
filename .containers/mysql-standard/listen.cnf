@@ -1,0 +1,4 @@
+# Put this file in /etc/mysql/conf.d/
+
+[mysqld]
+bind-address            = 0.0.0.0

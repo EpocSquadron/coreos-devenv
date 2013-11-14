@@ -1,0 +1,8 @@
+# Stupid finder metadata
+.DS_Store
+
+# Meta for vagrant about the vm
+.vagrant
+
+# Testing environment
+test
