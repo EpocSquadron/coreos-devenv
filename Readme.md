@@ -59,15 +59,23 @@ Using apache's mod_vhost_alias we can route wildcard hostnames to their matching
 
 ### Installation
 
-Simply download this repo and copy it to the directory you will be storing your website projects. Typically this is `~/Sites` or `~/Projects`. You can optionally elect to copy over only the files that are absolutely neccesary.
+Simply download this repo and copy it's contents to the directory you will be storing your website projects. Typically this is `~/Sites` or `~/Projects`. You can optionally elect to copy over only the files that are absolutely neccesary.
 
-	$ cd ~/Destination
+	$ cd ~/Sites
 	$ cp ~/path/to/downloaded/repo/Vagrantfile .
 	$ mkdir .coreos-devenv
 	$ cp -r ~/path/to/downloaded/repo/.coreos-devenv/scripts .coreos-devenv/
 	$ cp -r ~/path/to/downloaded/repo/.coreos-devenv/mysql-data .coreos-devenv/
 
-> Don't clone this repository into that directory, as this repository will unneccesarily track your changes to your databases. It may also fool you into thinking you have a repository in `~/Sites/some-project` when in fact you are commiting to this respository.
+The final result should look like this, at minimum:
+
+	~/Sites
+	├── .coreos-devenv
+	│   ├── mysql-data
+	│   └── scripts
+	└── Vagrantfile
+
+> **WARNING:** Don't clone this repository into that directory, as this repository will unneccesarily track your changes to your databases. It may also fool you into thinking you have a repository in `~/Sites/some-project` when in fact you are commiting to this respository.
 
 Then in that directory run `vagrant up`. The first run will take a little bit of time to pull the coreos image, pull the relevant docker images and start them up, but subsequent runs will only need to start the docker instances (which btw is nearly instantaneous).
 
