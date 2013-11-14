@@ -59,7 +59,13 @@ Using apache's mod_vhost_alias we can route wildcard hostnames to their matching
 
 ### Installation
 
-Simply download this repo to the directory you will be storing your website projects. Typically this is `~/Sites` or `~/Projects`.
+Simply download this repo and copy it to the directory you will be storing your website projects. Typically this is `~/Sites` or `~/Projects`. You can optionally elect to copy over only the files that are absolutely neccesary.
+
+	$ cd ~/Destination
+	$ cp ~/path/to/downloaded/repo/Vagrantfile .
+	$ mkdir .coreos-devenv
+	$ cp -r ~/path/to/downloaded/repo/.coreos-devenv/scripts .coreos-devenv/
+	$ cp -r ~/path/to/downloaded/repo/.coreos-devenv/mysql-data .coreos-devenv/
 
 > Don't clone this repository into that directory, as this repository will unneccesarily track your changes to your databases. It may also fool you into thinking you have a repository in `~/Sites/some-project` when in fact you are commiting to this respository.
 
