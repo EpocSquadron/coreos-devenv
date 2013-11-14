@@ -20,6 +20,6 @@ Vagrant.configure("2") do |config|
 	# Provision docker with shell
 	# config.vm.provision
 	config.vm.provision "shell",
-		path: ".scripts/provision-docker.sh"
+		path: ".coreos-devenv/scripts/provision-docker.sh"
 
 end
