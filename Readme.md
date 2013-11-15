@@ -109,14 +109,12 @@ On every start the mysql server docker container ensures that the user `remote` 
 - Host: 33.33.33.77
 - Port: 3306
 
-Continue as you normally would for creating the required database and loading the required data. Once that is complete, you will need to configure your application to connect to the mysql server with the following credentials:
+Continue as you normally would for creating the required database and loading the required data. Once that is complete, you will need to configure your application to connect to the mysql server. In php you can do this with the following:
 
-- Username: remote
-- Password: blahblahblah
-- Host: ??
-- Port: 3306
-
-> If you want to change the password, open up `.coreos-devenv/containers/mysql-standard/grants.sql` and change the password in the SQL statement. This sql file is ran as the init-file for apache every time the mysql-standard container loads.
+	$env_db['hostname'] = getenv('DB_PORT_3306_TCP_ADDR');
+	$env_db['port']     = getenv('DB_PORT_3306_TCP_PORT');
+	$env_db['username'] = getenv('DB_ENV_USERNAME');
+	$env_db['password'] = getenv('DB_ENV_PASSWORD');
 
 Note that the data files for mysql are actually stored on your computer (the host), so that you can destroy and up your virtual machine at will. A base data folder is provided to prevent mysql from failing to start on first load, but if you have a data directory from a previous install, you can simply overwrite `.coreos-devenv/mysql-data/` with it and you should be up and running with your databases.
 
