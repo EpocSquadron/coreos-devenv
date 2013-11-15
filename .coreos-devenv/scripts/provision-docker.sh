@@ -19,21 +19,31 @@ for REPO in $REPOS; do
 done
 
 echo ":: Starting mysql container..."
-docker run \
-	-v /home/core/sites/.coreos-devenv/mysql-data:/var/lib/mysql \
-	-p 3306:3306 \
-	-e USERNAME="remote" \
-	-e PASSWORD="blahblahblah" \
-	-d \
-	-name mysql-standard \
-	epocsquadron/mysql-standard
+
+if [[ -n `docker ps | grep -o mysql-standard` ]]; then
+	echo "Already running."
+else
+	docker run \
+		-v /home/core/sites/.coreos-devenv/mysql-data:/var/lib/mysql \
+		-p 3306:3306 \
+		-e USERNAME="remote" \
+		-e PASSWORD="blahblahblah" \
+		-d \
+		-name mysql-standard \
+		epocsquadron/mysql-standard
+fi
 
 echo ":: Starting apache container..."
-docker run \
-	-v /home/core/sites:/var/www \
-	-p 80:80 \
-	-p 443:443 \
-	-d \
-	-name apache-php-dynamic \
-	-link /mysql-standard:db \
-	epocsquadron/apache-php-dynamic
+
+if [[ -n `docker ps | grep -o apache-php-dynamic` ]]; then
+	echo "Already running."
+else
+	docker run \
+		-v /home/core/sites:/var/www \
+		-p 80:80 \
+		-p 443:443 \
+		-d \
+		-name apache-php-dynamic \
+		-link /mysql-standard:db \
+		epocsquadron/apache-php-dynamic
+fi
