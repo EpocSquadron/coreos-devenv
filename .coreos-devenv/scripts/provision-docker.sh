@@ -6,7 +6,9 @@ REPOS=`find /home/core/sites/.coreos-devenv/containers/ -maxdepth 1 -type d -pri
 
 for REPO in $REPOS; do
 
-	SEARCH_RESULT=`docker search epocsquadron/$REPO | grep -o epocsquadron/$REPO`
+	# Look in docker's public repository for an exact match, removing the
+	# line describing the query used, which triggers a false positive.
+	SEARCH_RESULT=`docker search epocsquadron/$REPO | sed 1d | grep -o epocsquadron/$REPO`
 
 	if [[ -n $SEARCH_RESULT ]]; then
 		echo "Found epocsquadron/$REPO, pulling latest..."
