@@ -25,32 +25,30 @@ done
 
 echo ":: Starting mysql container..."
 
-if [[ -n `docker ps | grep -o mysql-standard` ]]; then
-	echo "Already running. Restarting..."
-	docker restart mysql-standard
-else
-	docker run \
-		-v /home/core/sites/.coreos-devenv/mysql-data:/var/lib/mysql \
-		-p 3306:3306 \
-		-e USERNAME="remote" \
-		-e PASSWORD="blahblahblah" \
-		-d \
-		-name mysql-standard \
-		epocsquadron/mysql-standard
-fi
+# Sometimes this is leftover from a previous run,
+# but isn't running, so let's just remove it.
+docker rm mysql-standard
+
+docker run \
+	-v /home/core/sites/.coreos-devenv/mysql-data:/var/lib/mysql \
+	-p 3306:3306 \
+	-e USERNAME="remote" \
+	-e PASSWORD="blahblahblah" \
+	-d \
+	-name mysql-standard \
+	epocsquadron/mysql-standard
 
 echo ":: Starting apache container..."
 
-if [[ -n `docker ps | grep -o apache-php-dynamic` ]]; then
-	echo "Already running. Restarting..."
-	docker restart apache-php-dynamic
-else
-	docker run \
-		-v /home/core/sites:/var/www \
-		-p 80:80 \
-		-p 443:443 \
-		-d \
-		-name apache-php-dynamic \
-		-link /mysql-standard:db \
-		epocsquadron/apache-php-dynamic
-fi
+# Sometimes this is leftover from a previous run,
+# but isn't running, so let's just remove it.
+docker rm apache-php-dynamic
+
+docker run \
+	-v /home/core/sites:/var/www \
+	-p 80:80 \
+	-p 443:443 \
+	-d \
+	-name apache-php-dynamic \
+	-link /mysql-standard:db \
+	epocsquadron/apache-php-dynamic
