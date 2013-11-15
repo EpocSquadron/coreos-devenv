@@ -21,7 +21,8 @@ done
 echo ":: Starting mysql container..."
 
 if [[ -n `docker ps | grep -o mysql-standard` ]]; then
-	echo "Already running."
+	echo "Already running. Restarting..."
+	docker restart mysql-standard
 else
 	docker run \
 		-v /home/core/sites/.coreos-devenv/mysql-data:/var/lib/mysql \
@@ -36,7 +37,8 @@ fi
 echo ":: Starting apache container..."
 
 if [[ -n `docker ps | grep -o apache-php-dynamic` ]]; then
-	echo "Already running."
+	echo "Already running. Restarting..."
+	docker restart apache-php-dynamic
 else
 	docker run \
 		-v /home/core/sites:/var/www \
