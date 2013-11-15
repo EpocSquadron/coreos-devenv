@@ -1,6 +1,22 @@
 echo ":: Building docker containers..."
-docker build -t epocsquadron/apache-php-dynamic /home/core/sites/.coreos-devenv/containers/apache-php-dynamic/
-docker build -t epocsquadron/mysql-standard /home/core/sites/.coreos-devenv/containers/mysql-standard/
+
+# Loop through the container definitions in .coreos-devenv/containers
+# and build them or pull them if they exist.
+REPOS=`find /home/core/sites/.coreos-devenv/containers/ -maxdepth 1 -type d -printf '%P '`
+
+for REPO in $REPOS; do
+
+	SEARCH_RESULT=`docker search epocsquadron/$REPO | grep -o epocsquadron/$REPO`
+
+	if [[ -n $SEARCH_RESULT ]]; then
+		echo "Found epocsquadron/$REPO, pulling latest..."
+		docker pull "epocsquadron/$REPO"
+	else
+		echo "Didn't find epocsquadron/$REPO, building it ourselves..."
+		docker build -t epocsquadron/$REPO /home/core/sites/.coreos-devenv/containers/$REPO/
+	fi
+
+done
 
 echo ":: Starting mysql container..."
 docker run \
