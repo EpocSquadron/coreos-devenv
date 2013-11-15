@@ -20,6 +20,9 @@ for REPO in $REPOS; do
 
 done
 
+echo ":: Ensuring that docker is running..."
+sudo systemctl start docker
+
 echo ":: Starting mysql container..."
 
 if [[ -n `docker ps | grep -o mysql-standard` ]]; then
