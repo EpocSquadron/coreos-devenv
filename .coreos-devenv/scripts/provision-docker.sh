@@ -5,6 +5,9 @@ docker build -t epocsquadron/mysql-standard /home/core/sites/.coreos-devenv/cont
 echo ":: Starting mysql container..."
 docker run \
 	-v /home/core/sites/.coreos-devenv/mysql-data:/var/lib/mysql \
+	-p 3306:3306 \
+	-e USERNAME="remote" \
+	-e PASSWORD="blahblahblah" \
 	-d \
 	-name mysql-standard \
 	epocsquadron/mysql-standard
