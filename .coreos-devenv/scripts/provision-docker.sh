@@ -1,3 +1,6 @@
+echo ":: Ensuring that docker is running..."
+sudo systemctl start docker
+
 echo ":: Building docker containers..."
 
 # Loop through the container definitions in .coreos-devenv/containers
@@ -19,9 +22,6 @@ for REPO in $REPOS; do
 	fi
 
 done
-
-echo ":: Ensuring that docker is running..."
-sudo systemctl start docker
 
 echo ":: Starting mysql container..."
 
