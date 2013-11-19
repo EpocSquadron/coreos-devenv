@@ -27,6 +27,7 @@ echo ":: Starting mysql container..."
 
 # Sometimes this is leftover from a previous run,
 # but isn't running, so let's just remove it.
+docker stop mysql-standard
 docker rm mysql-standard
 
 docker run \
@@ -42,6 +43,7 @@ echo ":: Starting apache container..."
 
 # Sometimes this is leftover from a previous run,
 # but isn't running, so let's just remove it.
+docker stop apache-php-dynamic
 docker rm apache-php-dynamic
 
 docker run \
