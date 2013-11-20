@@ -1,5 +1,5 @@
 # Start with Ubuntu base
-FROM ubuntu
+FROM ubuntu:12.10
 
 # Credit
 MAINTAINER Daniel Poulin
@@ -10,7 +10,14 @@ RUN apt-get install -y vim ntp
 
 # Install apache and php5
 RUN apt-get install -y apache2
-RUN apt-get install -y php5 php5-mysql php5-gd php5-curl libapache2-mod-php5
+RUN apt-get install -y php5 \
+	php5-mysql \
+	php5-gd \
+	php5-curl \
+	php5-mcrypt \
+	php5-xdebug \
+	php-apc \
+	libapache2-mod-php5
 
 # Set environment variables
 ENV APACHE_RUN_USER www-data
