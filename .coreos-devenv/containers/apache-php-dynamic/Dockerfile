@@ -27,6 +27,9 @@ ENV APACHE_LOG_DIR /var/log/apache2
 # Make sure all the desired apache modules are on
 RUN a2enmod ssl headers rewrite vhost_alias && apache2ctl restart
 
+# Set the default timezone
+ADD timezone.ini /etc/php5/conf.d/timezone.ini
+
 # Disable default site and replace with our own
 ADD dynamic-vhost.conf /etc/apache2/sites-available/dynamic
 ADD setDocRoot.php /etc/apache2/includes/
