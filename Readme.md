@@ -79,7 +79,7 @@ The final result should look like this, at minimum:
 
 Then in that directory run `vagrant up`. The first run will take a little bit of time to pull the coreos image, pull the relevant docker images and start them up, but subsequent runs will only need to start the docker instances (which btw is nearly instantaneous).
 
-You may also install dnsmasq via the included script at `.coreos-devenv/scripts/install-dnsmasq.sh`, which requires OSX and [homebrew](http://brew.sh/).
+You may also install dnsmasq via the included script at `.coreos-devenv/scripts/osx/install-dnsmasq.sh`, which requires OSX and [homebrew](http://brew.sh/).
 
 > **Linux Users:** You can install dnsmasq from your distro's repository and add the line `address=/dsdev/33.33.33.77` to the `/etc/dnsmasq.conf` file. Then ensure that your dnsmasq installation is (re)loaded to allow the configuration to take effect, and optionally enable it on startup. For systemd users this means running `sudo systemctl reload dnsmasq.service && sudo systemctl enable dnsmasq.service`. Finally ensure dnsmasq is your default nameserver for your network connection, usually by adding `nameserver 127.0.0.1` as the first line in your `/etc/resolv.conf` file.
 
