@@ -99,7 +99,10 @@ main() {
 	bootstrapDatabaseDirectory && \
 	offerDnsmasq
 
-	echo -e "\033[0;32m:: Done installing.\033[0m"
+	echo -e "\033[0;32m:: Finished installing your new development environment!\033[0m
+    \033[0;34mRun 'vagrant up' to get it going. Check out the Readme.md file in $HIDDEN_MASTER_DIRECTORY or go
+    to \033[4mhttps://github.com/EpocSquadron/coreos-devenv\033[0m\033[0;34m for more on how to use your new environment.\033[0m
+"
 
 }
 
