@@ -87,7 +87,7 @@ offerDnsmasq() {
 			source "$HIDDEN_MASTER_DIRECTORY/scripts/osx/install-dnsmasq.sh"
 		fi
 	else
-		echo -n -e "\033 We noticed you're not on OSX. In order to make use of wildcard DNS, please install dnsmasq!"
+		echo -n -e "\033[0;33m:: We noticed you're not on OSX. In order to make use of wildcard DNS, please install dnsmasq!\033[0m "
 	fi
 
 }
