@@ -18,7 +18,8 @@ hash brew 2>&- || { echo >&2 "Homebrew is required but is either not installed o
 echo ":: Installing dnsmasq with homebrew.."
 brew install dnsmasq
 
-echo ":: Configuring dnsmasq.."
+echo ":: Configuring dnsmasq..
+Your sudo password will be required."
 # Create config file
 cp /usr/local/opt/dnsmasq/dnsmasq.conf.example /usr/local/etc/dnsmasq.conf
 echo "address=/$1.dsdev/$2" >> /usr/local/etc/dnsmasq.conf
@@ -28,8 +29,7 @@ sudo touch /etc/resolver/dsdev
 sudo echo "nameserver 127.0.0.1" > /etc/resolver/dsdev
 
 # Make it load at start
-echo ":: Registering dnsmasq as a startup daemon..
-Your sudo password will be required."
+echo ":: Registering dnsmasq as a startup daemon.."
 # We will unload it, in case it was already installed and enabled.
 if [[ -f /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist ]]; then
 	sudo launchctl unload /Library/LaunchDaemons/homebrew.mxcl.dnsmasq.plist

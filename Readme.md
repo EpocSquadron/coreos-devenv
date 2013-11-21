@@ -59,29 +59,45 @@ Using apache's mod_vhost_alias we can route wildcard hostnames to their matching
 
 ### Installation
 
-Simply download this repo and copy it's contents to the directory you will be storing your website projects. Typically this is `~/Sites` or `~/Projects`. You can optionally elect to copy over only the files that are absolutely neccesary.
+This virtual machine is meant to be run in the same directory as where you store your web projects. For many this is `~/Sites` or `~/Projects` or some variation thereof. Create and navigate (`cd` into) the folder you wish to use, then choose one of the following options for installing.
 
-	$ cd ~/Sites
-	$ cp ~/path/to/downloaded/repo/Vagrantfile .
-	$ mkdir .coreos-devenv
-	$ cp -r ~/path/to/downloaded/repo/.coreos-devenv/scripts .coreos-devenv/
-	$ cp -r ~/path/to/downloaded/repo/.coreos-devenv/mysql-data .coreos-devenv/
+#### The Really Easy Way
 
-The final result should look like this, at minimum:
+You can run the installer in much the way you might for [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh):
 
-	~/Sites
-	├── .coreos-devenv
-	│   ├── mysql-data
-	│   └── scripts
-	└── Vagrantfile
+	$ curl -L https://github.com/EpocSquadron/coreos-devenv/raw/master/scripts/install.sh | bash
 
-> **WARNING:** Don't clone this repository into that directory, as this repository will unneccesarily track your changes to your databases. It may also fool you into thinking you have a repository in `~/Sites/some-project` when in fact you are commiting to this respository.
+or
 
-Then in that directory run `vagrant up`. The first run will take a little bit of time to pull the coreos image, pull the relevant docker images and start them up, but subsequent runs will only need to start the docker instances (which btw is nearly instantaneous).
+	$ wget --no-check-certificate https://github.com/EpocSquadron/coreos-devenv/raw/master/scripts/install.sh -O - | bash
+
+#### The Manual Way
+
+1. Clone this repository
+
+	$ git clone https://github.com/EpocSquadron/coreos-devenv .coreos-devenv
+
+2. Copy the Vagrantfile into the current directory
+
+	$ cp .coreos-devenv/Vagrantfile .
+
+3. If you have a raw mysql data directory you would like to use from a previous development environment, copy it to `.coreos-databases/mysql`.
+4. If you have no data directory to start from, you must provide a bare-bones (no databases) data directory, provided with the project.
+
+	$ cp -r .coreos-devenv/database/mysql .coreos-databases/
+
+
+#### Optional
 
 You may also install dnsmasq via the included script at `.coreos-devenv/scripts/osx/install-dnsmasq.sh`, which requires OSX and [homebrew](http://brew.sh/).
 
 > **Linux Users:** You can install dnsmasq from your distro's repository and add the line `address=/dsdev/33.33.33.77` to the `/etc/dnsmasq.conf` file. Then ensure that your dnsmasq installation is (re)loaded to allow the configuration to take effect, and optionally enable it on startup. For systemd users this means running `sudo systemctl reload dnsmasq.service && sudo systemctl enable dnsmasq.service`. Finally ensure dnsmasq is your default nameserver for your network connection, usually by adding `nameserver 127.0.0.1` as the first line in your `/etc/resolv.conf` file.
+
+### Starting the virtual machine
+
+From your master project directory, run `vagrant up`. The first time it runs it may take some time to pull down the required virtual machine and container images. Subsequent runs should be much faster.
+
+> Note: [Bugs](https://github.com/coreos/coreos-vagrant/issues/23) are still being worked on with regards to starting docker from within the virtual machine. In the meantime, if the development server doesn't resopnd you may need to use the `--provision` flag on subsequent runs. If this results in a failed provisioning run `vagrant provision` separately.
 
 ### Setting up a project
 
