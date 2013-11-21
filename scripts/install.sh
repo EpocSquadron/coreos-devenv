@@ -106,5 +106,13 @@ main() {
 
 }
 
-main
+main || {
+
+	echo -e >&2 "
+    \033[0;31mYour new development environment didn't finish installing.
+    Check any error output above and feel free to open a github
+    issue at \033[4mhttps://github.com/EpocSquadron/coreos-devenv/issues\033[0m"
+	exit 4
+
+}
 
