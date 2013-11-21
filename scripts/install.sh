@@ -86,7 +86,8 @@ offerDnsmasq() {
 		if [[ "$RESPONSE" == "" || "$RESPONSE" == 'y' || "$RESPONSE" == 'Y' || "$RESPONSE" == 'yes' ]]; then
 			source "$HIDDEN_MASTER_DIRECTORY/scripts/osx/install-dnsmasq.sh"
 		fi
-
+	else
+		echo -n -e "\033 We noticed you're not on OSX. In order to make use of wildcard DNS, please install dnsmasq!"
 	fi
 
 }
@@ -115,4 +116,3 @@ main || {
 	exit 4
 
 }
-
