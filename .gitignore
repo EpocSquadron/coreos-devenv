@@ -1,12 +1,45 @@
-# Ignore everything so we can put this reop in the
-# ~/Sites folder, optionally.
-*
+# Numerous always-ignore extensions
+*.bak
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
 
-# Let git track the internal folder.
-!.coreos-devenv
+# OS or Editor folders
+.DS_Store
+._*
+Thumbs.db
+.cache
+.project
+.settings
+.tmproj
+nbproject
+*.sublime-project
+*.sublime-workspace
 
-# Let git track the three files that have to be out
-# of the internal folder.
-!.gitignore
-!Readme.md
-!Vagrantfile
+# Dreamweaver added files
+_notes
+dwsync.xml
+
+# Komodo
+*.komodoproject
+.komodotools
+
+# Espresso
+*.esproj
+*.espressostorage
+
+# Rubinius
+*.rbc
+
+# Folders to ignore
+.hg
+.svn
+.CVS
+.idea
