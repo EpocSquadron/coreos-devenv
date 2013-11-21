@@ -33,7 +33,7 @@ fi
 docker rm mysql-standard
 
 docker run \
-	-v /home/core/sites/.coreos-devenv/mysql-data:/var/lib/mysql \
+	-v /home/core/sites/.coreos-databases/mysql:/var/lib/mysql \
 	-p 3306:3306 \
 	-e USERNAME="remote" \
 	-e PASSWORD="blahblahblah" \
