@@ -65,11 +65,11 @@ This virtual machine is meant to be run in the same directory as where you store
 
 You can run the installer in much the way you might for [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh):
 
-	$ curl -sLS https://github.com/EpocSquadron/coreos-devenv/raw/master/scripts/install.sh -o tmp-coreos-devenv-installer.sh && bash tmp-coreos-devenv-installer.sh; rm tmp-coreos-devenv-installer.sh
+	$ curl -sLS https://github.com/EpocSquadron/coreos-devenv/raw/master/scripts/install.sh -o tmp.sh && bash tmp.sh; rm tmp.sh
 
 or
 
-	$ wget -q --no-check-certificate https://github.com/EpocSquadron/coreos-devenv/raw/master/scripts/install.sh -O tmp-coreos-devenv-installer.sh && bash tmp-coreos-devenv-installer.sh; rm tmp-coreos-devenv-installer.sh
+	$ wget -q --no-check-certificate https://github.com/EpocSquadron/coreos-devenv/raw/master/scripts/install.sh -O tmp.sh && bash tmp.sh; rm tmp.sh
 
 #### The Manual Way
 
