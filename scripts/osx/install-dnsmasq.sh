@@ -3,7 +3,7 @@
 checkDependencies() {
 
 	# Check for existence/accessibility of mysql and sed
-	echo "\033[0;32m:: Checking dependencies.\033[0m"
+	echo -e "\033[0;32m:: Checking dependencies.\033[0m"
 	hash brew 2>&- || {
 		echo >&2-e  "\033[0;31mHomebrew is required but is either not installed or not in your PATH. Aborting install of dnsmasq.\033[0m";
 		exit 1;
@@ -82,9 +82,9 @@ main() {
 	setNameserver
 
 	echo -e "\033[0;32m:: dnsmasq installed!\033[0m
-
-\033[0;34mhttp://*.dsdev will now point to your vagrant machine at 33.33.33.77.
-Edit /usr/local/etc/dnsmasq.conf if you need to make configuration adjustments.\033[0m"
+    \033[0;34mhttp://*.dsdev will now point to your vagrant machine at 33.33.33.77.
+    Edit /usr/local/etc/dnsmasq.conf if you need to make configuration adjustments.\033[0m
+"
 
 }
 
