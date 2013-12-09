@@ -1,0 +1,17 @@
+[Unit]
+Description=My Service
+Wants=docker.service
+After=docker.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker run \
+	-v /home/core/.coreos-databases/mysql:/var/lib/mysql \
+	-p 3306:3306 \
+	-e USERNAME="remote" \
+	-e PASSWORD="blahblahblah" \
+	-d \
+	epocsquadron/mysql-standard
+
+[Install]
+WantedBy=local.target

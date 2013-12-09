@@ -1,3 +1,6 @@
+echo ":: Setting up NFS mount to your machine..."
+cp .coreos-devenv/systemd/nfs.mount /media/state/units
+
 echo ":: Ensuring that docker is running..."
 sudo systemctl start docker
 
@@ -5,7 +8,7 @@ echo ":: Building docker containers..."
 
 # Loop through the container definitions in .coreos-devenv/containers
 # and build them or pull them if they exist.
-REPOS=`find /home/core/sites/.coreos-devenv/containers/ -maxdepth 1 -type d -printf '%P '`
+REPOS=`find /home/core/.coreos-devenv/containers/ -maxdepth 1 -type d -printf '%P '`
 
 for REPO in $REPOS; do
 
@@ -18,7 +21,7 @@ for REPO in $REPOS; do
 		docker pull "epocsquadron/$REPO"
 	else
 		echo "Didn't find epocsquadron/$REPO, building it ourselves..."
-		docker build -t epocsquadron/$REPO /home/core/sites/.coreos-devenv/containers/$REPO/
+		docker build -t epocsquadron/$REPO /home/core/.coreos-devenv/containers/$REPO/
 	fi
 
 done
@@ -33,7 +36,7 @@ fi
 docker rm mysql-standard
 
 docker run \
-	-v /home/core/sites/.coreos-databases/mysql:/var/lib/mysql \
+	-v /home/core/.coreos-databases/mysql:/var/lib/mysql \
 	-p 3306:3306 \
 	-e USERNAME="remote" \
 	-e PASSWORD="blahblahblah" \

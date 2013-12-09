@@ -9,13 +9,7 @@ Vagrant.configure("2") do |config|
 
 	# Define a static IP
 	config.vm.network "private_network",
-		ip: "33.33.33.77"
-
-	# Share the current folder via NFS
-	config.vm.synced_folder ".", "/home/core/sites",
-		id: "core",
-		:nfs => true,
-		:mount_options => ['nolock,vers=3,udp,noatime']
+		ip: "33.33.33.78"
 
 	# Provision docker with shell
 	# config.vm.provision

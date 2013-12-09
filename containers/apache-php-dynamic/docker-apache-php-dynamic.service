@@ -1,0 +1,17 @@
+[Unit]
+Description=My Service
+Wants=docker.service docker-mysql-standard.service
+After=docker.service docker-mysql-standard.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/docker run \
+	-v /home/core/sites:/var/www \
+	-p 80:80 \
+	-p 443:443 \
+	-d \
+	-link /mysql-standard:db \
+	epocsquadron/apache-php-dynamic
+
+[Install]
+WantedBy=local.target
