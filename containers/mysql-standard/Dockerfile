@@ -8,6 +8,12 @@ MAINTAINER Daniel Poulin
 RUN apt-get update
 RUN apt-get install -y vim ntp
 
+# Install mysql
+RUN apt-get install -y mysql-server
+
+# Clean up after install
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
 # Add a grants file to set up remote user
 # and disbale the root user's remote access.
 ADD grants.sql /etc/mysql/
@@ -15,13 +21,8 @@ ADD grants.sql /etc/mysql/
 # Add a conf file for correcting "listen"
 ADD listen.cnf /etc/mysql/conf.d/
 
-# Install mysql
-RUN apt-get install -y mysql-server
-
-# Clean up after install
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
-
 # Run mysqld on standard port
 EXPOSE 3306
 
-CMD ["/usr/sbin/mysqld", "--init-file=/etc/mysql/grants.sql"]
+ENTRYPOINT ["/usr/sbin/mysqld"]
+CMD ["--init-file=/etc/mysql/grants.sql"]
