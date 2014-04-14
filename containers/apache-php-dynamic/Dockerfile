@@ -27,7 +27,7 @@ ENV APACHE_RUN_GROUP www-data
 ENV APACHE_LOG_DIR /var/log/apache2
 
 # Make sure all the desired apache modules are on
-RUN a2enmod ssl headers rewrite vhost_alias && apache2ctl restart
+RUN a2enmod ssl headers rewrite vhost_alias
 
 # Disable default site and replace with our own
 ADD dynamic-vhost.conf /etc/apache2/sites-available/dynamic
