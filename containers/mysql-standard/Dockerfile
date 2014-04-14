@@ -1,5 +1,5 @@
 # Start with Ubuntu base
-FROM ubuntu
+FROM ubuntu:12.10
 
 # Credit
 MAINTAINER Daniel Poulin
