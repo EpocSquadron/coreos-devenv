@@ -6,7 +6,6 @@ MAINTAINER Daniel Poulin
 
 # Install some basics
 RUN apt-get update
-RUN apt-get install -y vim ntp
 
 # Install mysql
 RUN apt-get install -y mysql-server
