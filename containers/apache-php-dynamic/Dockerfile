@@ -32,7 +32,7 @@ RUN a2enmod ssl headers rewrite vhost_alias && apache2ctl restart
 # Disable default site and replace with our own
 ADD dynamic-vhost.conf /etc/apache2/sites-available/dynamic
 ADD setDocRoot.php /etc/apache2/includes/
-RUN a2dissite default && a2ensite dynamic && service apache2 restart
+RUN a2dissite default && a2ensite dynamic
 
 # Set the default timezone
 ADD timezone.ini /etc/php5/conf.d/timezone.ini
