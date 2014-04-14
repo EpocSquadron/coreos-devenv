@@ -44,4 +44,4 @@ RUN echo 'zend_extension="'$(find / -name 'xdebug.so' 2> /dev/null)'"' >> /etc/p
 # Run apache on standard ports
 EXPOSE 80 443
 
-ENTRYPOINT ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
