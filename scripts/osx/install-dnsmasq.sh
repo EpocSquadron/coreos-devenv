@@ -52,7 +52,7 @@ setNameserver() {
 
 	if [ ! -f "/etc/resolver/dsdev" ]; then
 		sudo touch /etc/resolver/dsdev
-		sudo echo "nameserver 127.0.0.1" > /etc/resolver/dsdev
+		echo "nameserver 127.0.0.1" | sudo tee -a /etc/resolver/dsdev
 	fi
 
 }
