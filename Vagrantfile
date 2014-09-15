@@ -4,8 +4,8 @@
 Vagrant.configure("2") do |config|
 
 	# Define the CoreOS box
-	config.vm.box = "coreos"
-	config.vm.box_url = "http://storage.core-os.net/coreos/amd64-generic/dev-channel/coreos_production_vagrant.box"
+	config.vm.box = "coreos-alpha"
+	config.vm.box_url = "http://alpha.release.core-os.net/amd64-usr/current/coreos_production_vagrant.json"
 
 	# Define a static IP
 	config.vm.network "private_network",
