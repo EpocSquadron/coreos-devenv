@@ -39,7 +39,7 @@ CoreOS is essentially a barebones linux with the following properties:
 Thanks to the above, I no longer need to maintain a working development environment once it has been set up. Now only the server stack itself receives updates. That server stack is introduced via Docker images. Docker images have the following advantages:
 
 - They are [LXC containers](http://linuxcontainers.org/), which are like a chroot on steroids, or a really lightweight virtual machine
-- Files that are the same accross containers don't get replicated for each container, but rather reused, saving disk space
+- Files that are the same across containers don't get replicated for each container, but rather reused, saving disk space
 - Each container shares the host's kernel and so need not initialize it's own and hog additional memory for it
 - They are easily published and updated with `docker push` and `docker pull`
 
