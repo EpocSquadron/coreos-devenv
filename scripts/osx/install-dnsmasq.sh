@@ -36,7 +36,7 @@ configureDnsmasq() {
 
 	else
 		cp /usr/local/opt/dnsmasq/dnsmasq.conf.example /usr/local/etc/dnsmasq.conf
-		echo "address=/.dsdev/33.33.33.77" >> /usr/local/etc/dnsmasq.conf
+		echo "\\naddress=/.dsdev/33.33.33.77" >> /usr/local/etc/dnsmasq.conf
 	fi
 
 }
